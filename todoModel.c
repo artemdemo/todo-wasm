@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <emscripten/emscripten.h>
 
 #include "./todoModel.h"
 
@@ -7,13 +8,6 @@
 struct ToDo *todosList = 0;
 int todosListCurrentIndex = 0;
 int todosListSize = TODOS_START_LENGTH;
-
-int checkGivenIndex(int indexInList) {
-    if (indexInList > todosListCurrentIndex || indexInList < 0) {
-        return EXIT_FAILURE;
-    }
-    return EXIT_SUCCESS;
-}
 
 int initToDoList(void) {
     // `todosList` can be initiated only once
@@ -23,7 +17,18 @@ int initToDoList(void) {
     return EXIT_SUCCESS;
 }
 
-int addToDo(char title[], bool done) {
+int main(void) {
+    initToDoList();
+}
+
+int checkGivenIndex(int indexInList) {
+    if (indexInList > todosListCurrentIndex || indexInList < 0) {
+        return EXIT_FAILURE;
+    }
+    return EXIT_SUCCESS;
+}
+
+int EMSCRIPTEN_KEEPALIVE addToDo(char title[], bool done) {
     // If array is full, we should reallocate memory for addition items
     if (todosListCurrentIndex == todosListSize - 1) {
         todosListSize += TODOS_START_LENGTH;
@@ -37,7 +42,7 @@ int addToDo(char title[], bool done) {
 	return EXIT_SUCCESS;
 }
 
-int getToDo(int indexInList, struct ToDo *todoResult) {
+int EMSCRIPTEN_KEEPALIVE getToDo(int indexInList, struct ToDo *todoResult) {
     if (checkGivenIndex(indexInList) == EXIT_FAILURE) {
         return EXIT_FAILURE;
     }
@@ -45,7 +50,7 @@ int getToDo(int indexInList, struct ToDo *todoResult) {
     return EXIT_SUCCESS;
 }
 
-int deleteToDo(int indexInList) {
+int EMSCRIPTEN_KEEPALIVE deleteToDo(int indexInList) {
     if (checkGivenIndex(indexInList) == EXIT_FAILURE) {
         return EXIT_FAILURE;
     }
@@ -56,6 +61,6 @@ int deleteToDo(int indexInList) {
     return EXIT_SUCCESS;
 }
 
-int getToDoListLength(void) {
+int EMSCRIPTEN_KEEPALIVE getToDoListLength(void) {
     return todosListCurrentIndex;
 }

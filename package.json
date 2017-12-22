@@ -1,0 +1,14 @@
+{
+  "name": "todo-wasm",
+  "version": "1.0.0",
+  "description": "ToDo WASM",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run server",
+    "server": "lite-server -c server/lite-server-config.js",
+    "build": "./build.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Artem Demo",
+  "license": "ISC"
+}

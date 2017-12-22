@@ -1,2 +1,4 @@
 *.out.dSYM
 *.out
+node_modules
+*.log

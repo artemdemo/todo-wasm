@@ -1,8 +1,29 @@
-# Having fun with C
+# ToDo - WASM
 
-I'm using [c/c++ plugin for VS Code](https://code.visualstudio.com/docs/languages/cpp)
+On Mac
 
-## How to build code?
+* Install `git`
+* Install `XCode`
+* Install `Python 2.7.x`
+* Install `CMAKE`
+    `brew install cmake`
+* Install `emscripten`
+    https://kripken.github.io/emscripten-site/docs/getting_started/downloads.html
+
+For other OS look here: https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm
+
+## How to build wasm?
+
+First make sure that PATH and other environment variables are set up.
+After running `source ./emsdk_env.sh` in your `emscripten sdk` folder.
+
+Now you can build it:
+
+```
+emcc todoModel.c -s WASM=1 -O3 -o build/index.js
+```
+
+## How to build code? (separately from emcc)
 
 Just hit ⇧⌘B (Shift+Command+B) - and compiler will build executable binaries.
 
