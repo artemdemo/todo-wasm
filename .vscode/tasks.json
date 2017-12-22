@@ -1,0 +1,26 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build c tutorial prog",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c11",
+                "-g",
+                "-x",
+                "c",
+                "-o",
+                "program.out",
+                "main.c",
+                "todoModel.c"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+} 
