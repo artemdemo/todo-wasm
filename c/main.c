@@ -3,14 +3,22 @@
 
 #include "./todoModel.h"
 
+char* _getToDo(int indexInList) {
+    struct ToDo todoResult;
+    int result = getToDo(indexInList, &todoResult);
+    return todoResult.title;
+}
+
 int main(void) {
     initToDoList();
 	addToDo("Some title -0", false);
 	addToDo("Some title -1", true);
 	addToDo("Some title -2", true);
-	struct ToDo someToDo;
 
 	deleteToDo(1);
-	getToDo(1, &someToDo);
+	char *title = _getToDo(1);
+
+	printf("%s", title);
+
 	return EXIT_SUCCESS;
 }

@@ -14,7 +14,8 @@
                 "c",
                 "-o",
                 "program.out",
-                "todoModel.c"
+                "./c/main.c",
+                "./c/todoModel.c"
             ],
             "group": {
                 "kind": "build",
