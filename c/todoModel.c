@@ -130,7 +130,7 @@ int deleteToDoByIndex(int indexInList) {
     if (checkGivenIndex(indexInList) == EXIT_FAILURE) {
         return EXIT_FAILURE;
     }
-    for (int i = indexInList - 1; i < todosListCurrentIndex - 1; i++) {
+    for (int i = indexInList; i < todosListCurrentIndex - 1; i++) {
         todosList[i] = todosList[i + 1];
     }
     todosListCurrentIndex--;

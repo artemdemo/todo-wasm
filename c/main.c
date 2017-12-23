@@ -6,17 +6,21 @@
 
 int main(void) {
     initToDoList();
-	addToDo("Some title -0", false);
-	addToDo("Some title -1", true);
-	addToDo("Some title -2", true);
+	addToDo("Some title", false);
+	addToDo("Some other title", true);
+	addToDo("This should be deleted", true);
+	addToDo("Another title", true);
 
-	deleteToDoById(1);
-
-	updateToDoById(2, "Some title -2 updated", true);
-
-	printf("%s\n", getToDoJsonString(2));
-	printf("%s\n", getToDoJsonString(12));
+	printf("%s\n", getToDoJsonString(0));
 	printf("%s\n", getAllToDoJsonString());
+	deleteToDoById(2);
+	printf("%s\n", getToDoJsonString(20));
+	printf("%s\n", getAllToDoJsonString());
+
+	//updateToDoById(2, "Some title -2 updated", true);
+
+	
+	
 
 	return EXIT_SUCCESS;
 }

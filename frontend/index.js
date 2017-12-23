@@ -30,12 +30,17 @@ const onInit = () => {
         } catch(e) {}
         return todos;
     }
+    toDoModel.deleteToDo = todoId => Module.asm.__deleteToDo(todoId);
     toDoModel.getLength = () => Module.asm.__getToDoListLength();
     
     toDoModel.addToDo('Some title', false);
+    toDoModel.addToDo('Some title', false);
     toDoModel.addToDo('Some other title', true);
+    toDoModel.addToDo('This should be deleted', true);
     toDoModel.addToDo('Another title', true);
     console.log(toDoModel.getToDo(0));
+    console.log(toDoModel.getAllToDo());
+    toDoModel.deleteToDo(2);
     console.log(toDoModel.getToDo(20));
     console.log(toDoModel.getAllToDo());
 };

@@ -9,7 +9,7 @@ int main(void) {
     initToDoList();
 }
 
-int EMSCRIPTEN_KEEPALIVE _addToDo(char title[], bool done) {
+int EMSCRIPTEN_KEEPALIVE _addToDo(char *title, bool done) {
     return addToDo(title, done);
 }
 
