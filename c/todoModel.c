@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 
 #include "./todoModel.h"
@@ -23,14 +24,14 @@ int checkGivenIndex(int indexInList) {
     return EXIT_SUCCESS;
 }
 
-int addToDo(char title[], bool done) {
+int addToDo(char *title, bool done) {
     // If array is full, we should reallocate memory for addition items
     if (todosListCurrentIndex == todosListSize - 1) {
         todosListSize += TODOS_START_LENGTH;
         todosList = (struct ToDo*) realloc(todosList, todosListSize * sizeof(struct ToDo));
     }
-    todosList[todosListCurrentIndex].title = (char*)malloc(sizeof(char*));
-    todosList[todosListCurrentIndex].title = title;
+    //todosList[todosListCurrentIndex].title = (char*)malloc(sizeof(char*));
+    todosList[todosListCurrentIndex].title = strdup(title);
     todosList[todosListCurrentIndex].done = done;
     todosList[todosListCurrentIndex].id = todosListCurrentIndex;
     todosListCurrentIndex++;

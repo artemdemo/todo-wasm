@@ -7,5 +7,5 @@ emcc ./c/main-wasm.c \
      ./c/todoModel.c \
      -s WASM=1 \
      -O3 \
-     -s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall", "cwrap"]' \
+     -s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall", "cwrap", "Pointer_stringify"]' \
      -o build/todo.js
