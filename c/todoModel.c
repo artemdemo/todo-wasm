@@ -35,7 +35,7 @@ int addToDo(char *title, bool done) {
     todosList[todosListCurrentIndex].done = done;
     todosList[todosListCurrentIndex].id = todosListCurrentIndex;
     todosListCurrentIndex++;
-	return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
 
 int updateToDoByIndex(int indexInList, char *title, bool done) {
@@ -44,7 +44,7 @@ int updateToDoByIndex(int indexInList, char *title, bool done) {
     }
     todosList[indexInList].title = strdup(title);
     todosList[indexInList].done = done;
-	return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
 
 int updateToDoById(int todoId, char *title, bool done) {
@@ -54,7 +54,7 @@ int updateToDoById(int todoId, char *title, bool done) {
             return EXIT_SUCCESS;
         }
     }
-	return EXIT_FAILURE;
+    return EXIT_FAILURE;
 }
 
 int getToDo(int indexInList, struct ToDo *todoResult) {
@@ -74,19 +74,19 @@ char* getToDoJsonString(int indexInList) {
 
     char *jsonStr = (char*)malloc(sizeof(char*));
 
-	strcat(jsonStr, "{\"title\": \"");
-	strcat(jsonStr, todoResult.title);
-	strcat(jsonStr, "\", \"done\": ");
-	if (todoResult.done) {
-		strcat(jsonStr, "true");
-	} else {
-		strcat(jsonStr, "false");
-	}
-	strcat(jsonStr, ", \"id\": ");
-	char id[10];
-	sprintf(id, "%d", todoResult.id);
-	strcat(jsonStr, id);
-	strcat(jsonStr, "}");
+    strcat(jsonStr, "{\"title\": \"");
+    strcat(jsonStr, todoResult.title);
+    strcat(jsonStr, "\", \"done\": ");
+    if (todoResult.done) {
+        strcat(jsonStr, "true");
+    } else {
+        strcat(jsonStr, "false");
+    }
+    strcat(jsonStr, ", \"id\": ");
+    char id[10];
+    sprintf(id, "%d", todoResult.id);
+    strcat(jsonStr, id);
+    strcat(jsonStr, "}");
     return jsonStr;
 }
 

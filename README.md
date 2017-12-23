@@ -20,14 +20,14 @@ After running `source ./emsdk_env.sh` in your `emscripten sdk` folder.
 Now you can build it:
 
 ```
-emcc todoModel.c -s WASM=1 -O3 -o build/index.js
+$ npm run build
 ```
 
 ## How to build code? (separately from emcc)
 
 Just hit ⇧⌘B (Shift+Command+B) - and compiler will build executable binaries.
 
-Then you just need to run `$ ./a.out`
+Then you just need to run `$ ./program.out`
 
 Main configuration is in `.vscode/tasks.json` Notice some important things:
 
@@ -86,11 +86,3 @@ This file contains settings for debuggin
     ]
 } 
 ```
-
-## Tutorials
-
-* https://www.youtube.com/watch?v=-CpG3oATGIs (4:38:52) - basic tutorial; use x2 speed, otherwise it's unbearable.
-
-## Lynda courses
-
-* [C Essential Training](https://www.lynda.com/C-tutorials/C-Essential-Training/164457-2.html)
