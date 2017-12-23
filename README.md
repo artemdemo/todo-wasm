@@ -23,6 +23,16 @@ Now you can build it:
 $ npm run build
 ```
 
+**Notice** for some reason they setting node.js to version 4.1.1 (only in current terminal session)
+That means that `npm` could stop working, because of some bug. So, you'll need to build `wasm` file just by running
+```
+$ ./build.sh
+```
+
+And then, in separate terminal tab build js files.
+
+I know, that strange, but we're beleaving in brighter future for all of us.
+
 ## How to build code? (separately from emcc)
 
 Just hit ⇧⌘B (Shift+Command+B) - and compiler will build executable binaries.
