@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "./todoModel.h"
+#include "./format.h"
 
 // Dynamic array: https://arduino.stackexchange.com/a/3778
 struct ToDo *todosList = 0;
@@ -24,19 +25,27 @@ int checkGivenIndex(int indexInList) {
     return EXIT_SUCCESS;
 }
 
+/**
+ * Create
+ */
+
 int addToDo(char *title, bool done) {
     // If array is full, we should reallocate memory for addition items
     if (todosListCurrentIndex == todosListSize - 1) {
         todosListSize += TODOS_START_LENGTH;
         todosList = (struct ToDo*) realloc(todosList, todosListSize * sizeof(struct ToDo));
     }
-    //todosList[todosListCurrentIndex].title = (char*)malloc(sizeof(char*));
+
     todosList[todosListCurrentIndex].title = strdup(title);
     todosList[todosListCurrentIndex].done = done;
     todosList[todosListCurrentIndex].id = todosListCurrentIndex;
     todosListCurrentIndex++;
     return EXIT_SUCCESS;
 }
+
+/**
+ * Update
+ */
 
 int updateToDoByIndex(int indexInList, char *title, bool done) {
     if (checkGivenIndex(indexInList) == EXIT_FAILURE) {
@@ -57,7 +66,11 @@ int updateToDoById(int todoId, char *title, bool done) {
     return EXIT_FAILURE;
 }
 
-int getToDo(int indexInList, struct ToDo *todoResult) {
+/**
+ * Read
+ */
+
+int getToDoByIndex(int indexInList, struct ToDo *todoResult) {
     if (checkGivenIndex(indexInList) == EXIT_FAILURE) {
         return EXIT_FAILURE;
     }
@@ -65,30 +78,53 @@ int getToDo(int indexInList, struct ToDo *todoResult) {
     return EXIT_SUCCESS;
 }
 
-char* getToDoJsonString(int indexInList) {
+int getToDoById(int todoId, struct ToDo *todoResult) {
+    for (int i = 0; i < todosListCurrentIndex; i++) {
+        if (todosList[i].id == todoId) {
+            *todoResult = todosList[i];
+            return EXIT_SUCCESS;
+        }
+    }
+    return EXIT_FAILURE;
+}
+
+char* getToDoJsonString(int todoId) {
     struct ToDo todoResult;
-    int result = getToDo(indexInList, &todoResult);
+    int result = getToDoById(todoId, &todoResult);
     if (result == EXIT_FAILURE) {
         return "";
     }
 
-    char *jsonStr = (char*)malloc(sizeof(char*));
+    return todoToJsonString(todoResult);
+}
 
-    strcat(jsonStr, "{\"title\": \"");
-    strcat(jsonStr, todoResult.title);
-    strcat(jsonStr, "\", \"done\": ");
-    if (todoResult.done) {
-        strcat(jsonStr, "true");
-    } else {
-        strcat(jsonStr, "false");
+char* getAllToDoJsonString() {
+    int jsonStrSizeStep = 200;
+    int jsonStrSize = jsonStrSizeStep;
+    int jsonStrUsedSize = 0;
+    char *jsonStr = (char*)malloc(jsonStrSize * sizeof(char*));
+    strcpy(jsonStr, "");
+    strcat(jsonStr, "[");
+    for (int i = 0; i < todosListCurrentIndex; i++) {
+        char *todoJsonStr = todoToJsonString(todosList[i]);
+        int nextBlockSize = strlen(todoJsonStr) + 1;
+        if (jsonStrSize < jsonStrUsedSize + nextBlockSize) {
+            jsonStrSize += jsonStrSizeStep;
+            jsonStr = (char*) realloc(jsonStr, jsonStrSize * sizeof(char*));
+        }
+        jsonStrUsedSize += nextBlockSize;
+        strcat(jsonStr, todoJsonStr);
+        if (i + 1 < todosListCurrentIndex) {
+            strcat(jsonStr, ",");
+        }
     }
-    strcat(jsonStr, ", \"id\": ");
-    char id[10];
-    sprintf(id, "%d", todoResult.id);
-    strcat(jsonStr, id);
-    strcat(jsonStr, "}");
+    strcat(jsonStr, "]");
     return jsonStr;
 }
+
+/**
+ * Delete
+ */
 
 int deleteToDoByIndex(int indexInList) {
     if (checkGivenIndex(indexInList) == EXIT_FAILURE) {
@@ -110,6 +146,10 @@ int deleteToDoById(int todoId) {
     }
     return EXIT_FAILURE;
 }
+
+/**
+ * List length
+ */
 
 int getToDoListLength(void) {
     return todosListCurrentIndex;

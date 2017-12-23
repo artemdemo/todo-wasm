@@ -4,7 +4,6 @@
   "description": "ToDo WASM",
   "main": "index.js",
   "scripts": {
-    "start": "npm run server",
     "build": "./build.sh",
     "server": "lite-server -c server/lite-server-config.js",
     "watch": "webpack --progress --colors --watch",
@@ -13,7 +12,9 @@
   },
   "author": "Artem Demo",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "bootstrap": "^4.0.0-beta.2"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",

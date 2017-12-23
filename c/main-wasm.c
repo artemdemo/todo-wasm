@@ -17,6 +17,10 @@ char* EMSCRIPTEN_KEEPALIVE _getToDo(int indexInList) {
     return getToDoJsonString(indexInList);
 }
 
+char* EMSCRIPTEN_KEEPALIVE _getAllToDo(void) {
+    return getAllToDoJsonString();
+}
+
 int EMSCRIPTEN_KEEPALIVE _deleteToDo(int todoId) {
     return deleteToDoById(todoId);
 }

@@ -14,8 +14,9 @@ int main(void) {
 
 	updateToDoById(2, "Some title -2 updated", true);
 
-	printf("%s", getToDoJsonString(1));
-	printf("%s", getToDoJsonString(12));
+	printf("%s\n", getToDoJsonString(2));
+	printf("%s\n", getToDoJsonString(12));
+	printf("%s\n", getAllToDoJsonString());
 
 	return EXIT_SUCCESS;
 }

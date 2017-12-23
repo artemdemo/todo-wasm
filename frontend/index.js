@@ -1,6 +1,7 @@
 const toDoModel = {
     addToDo: null,
     getToDo: null,
+    getAllToDo: null,
     deleteToDo: null,
     getLength: null,
 };
@@ -20,11 +21,23 @@ const onInit = () => {
         } catch(e) {}
         return todo;
     };
+    toDoModel.getAllToDo = () => {
+        const allTodosPointer = Module.asm.__getAllToDo();
+        const allTodosString = Module.Pointer_stringify(allTodosPointer);
+        let todos = null;
+        try {
+            todos = JSON.parse(allTodosString);
+        } catch(e) {}
+        return todos;
+    }
     toDoModel.getLength = () => Module.asm.__getToDoListLength();
     
     toDoModel.addToDo('Some title', false);
+    toDoModel.addToDo('Some other title', true);
+    toDoModel.addToDo('Another title', true);
     console.log(toDoModel.getToDo(0));
-    console.log(toDoModel.getToDo(1));
+    console.log(toDoModel.getToDo(20));
+    console.log(toDoModel.getAllToDo());
 };
 
 window.addEventListener('DOMContentLoaded', function() {

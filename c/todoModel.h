@@ -18,6 +18,7 @@ int addToDo(char[], bool);
 int updateToDoById(int, char*, bool);
 int deleteToDoById(int);
 char* getToDoJsonString(int);
+char* getAllToDoJsonString();
 int getToDoListLength(void);
 
 #endif
