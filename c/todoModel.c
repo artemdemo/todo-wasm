@@ -38,6 +38,25 @@ int addToDo(char *title, bool done) {
 	return EXIT_SUCCESS;
 }
 
+int updateToDoByIndex(int indexInList, char *title, bool done) {
+    if (checkGivenIndex(indexInList) == EXIT_FAILURE) {
+        return EXIT_FAILURE;
+    }
+    todosList[indexInList].title = strdup(title);
+    todosList[indexInList].done = done;
+	return EXIT_SUCCESS;
+}
+
+int updateToDoById(int todoId, char *title, bool done) {
+    for (int i = 0; i < todosListCurrentIndex; i++) {
+        if (todosList[i].id == todoId) {
+            updateToDoByIndex(i, title, done);
+            return EXIT_SUCCESS;
+        }
+    }
+	return EXIT_FAILURE;
+}
+
 int getToDo(int indexInList, struct ToDo *todoResult) {
     if (checkGivenIndex(indexInList) == EXIT_FAILURE) {
         return EXIT_FAILURE;
@@ -46,15 +65,50 @@ int getToDo(int indexInList, struct ToDo *todoResult) {
     return EXIT_SUCCESS;
 }
 
-int deleteToDo(int indexInList) {
+char* getToDoJsonString(int indexInList) {
+    struct ToDo todoResult;
+    int result = getToDo(indexInList, &todoResult);
+    if (result == EXIT_FAILURE) {
+        return "";
+    }
+
+    char *jsonStr = (char*)malloc(sizeof(char*));
+
+	strcat(jsonStr, "{\"title\": \"");
+	strcat(jsonStr, todoResult.title);
+	strcat(jsonStr, "\", \"done\": ");
+	if (todoResult.done) {
+		strcat(jsonStr, "true");
+	} else {
+		strcat(jsonStr, "false");
+	}
+	strcat(jsonStr, ", \"id\": ");
+	char id[10];
+	sprintf(id, "%d", todoResult.id);
+	strcat(jsonStr, id);
+	strcat(jsonStr, "}");
+    return jsonStr;
+}
+
+int deleteToDoByIndex(int indexInList) {
     if (checkGivenIndex(indexInList) == EXIT_FAILURE) {
         return EXIT_FAILURE;
     }
-    for(int i = indexInList - 1; i < todosListCurrentIndex - 1; i++){
+    for (int i = indexInList - 1; i < todosListCurrentIndex - 1; i++) {
         todosList[i] = todosList[i + 1];
     }
     todosListCurrentIndex--;
     return EXIT_SUCCESS;
+}
+
+int deleteToDoById(int todoId) {
+    for (int i = 0; i < todosListCurrentIndex; i++) {
+        if (todosList[i].id == todoId) {
+            deleteToDoByIndex(i);
+            return EXIT_SUCCESS;
+        }
+    }
+    return EXIT_FAILURE;
 }
 
 int getToDoListLength(void) {

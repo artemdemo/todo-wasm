@@ -1,13 +1,8 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 
 #include "./todoModel.h"
-
-char* _getToDo(int indexInList) {
-    struct ToDo todoResult;
-    int result = getToDo(indexInList, &todoResult);
-    return todoResult.title;
-}
 
 int main(void) {
     initToDoList();
@@ -15,10 +10,12 @@ int main(void) {
 	addToDo("Some title -1", true);
 	addToDo("Some title -2", true);
 
-	deleteToDo(1);
-	char *title = _getToDo(1);
+	deleteToDoById(1);
 
-	printf("%s", title);
+	updateToDoById(2, "Some title -2 updated", true);
+
+	printf("%s", getToDoJsonString(1));
+	printf("%s", getToDoJsonString(12));
 
 	return EXIT_SUCCESS;
 }

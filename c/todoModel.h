@@ -15,9 +15,9 @@ struct ToDo {
 
 int initToDoList(void);
 int addToDo(char[], bool);
-int deleteToDo(int);
-int getToDo(int, struct ToDo*);
-int deleteToDo(int);
+int updateToDoById(int, char*, bool);
+int deleteToDoById(int);
+char* getToDoJsonString(int);
 int getToDoListLength(void);
 
 #endif
